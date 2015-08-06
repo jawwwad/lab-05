@@ -1,0 +1,71 @@
+<hmtl>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<head>
+<style type="text/css">body{
+    background-color: yellow;
+    }
+    </style>
+    
+</head>
+<body>
+<header>
+    <h1>Welcome to Photos Gallery</h1>
+</header>
+<div align="center"id="imageGallery">    
+    <img width="500" height="300" id="image" src="http://www.hdwallpapersn.com/wp-content/uploads/2015/04/background_image_9.jpg" />        
+</div>
+    <button id="previous">Previous</button>    
+    <button id="next">Next</button>
+<div>
+<input type="file" onclick="previewFile()"><br>
+<img id="i" src="" height="200" alt="Image preview...">
+</div>
+
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+<script>
+   function previewFile(){
+       var preview = document.querySelector('#i'); //selects the query named img
+       var file    = document.querySelector('input[type=file]').files[0]; //sames as here
+       var reader  = new FileReader();
+
+       reader.onloadend = function () {
+           preview.src = reader.result;
+       }
+
+       if (file) {
+           reader.readAsDataURL(file); //reads the data as a URL
+       } else {
+           preview.src = "";
+       }
+  }
+
+  previewFile();  //calls the function named previewFile()
+
+    $( document ).ready(function() {
+
+        var images = [
+            "http://www.hdwallpapersn.com/wp-content/uploads/2015/04/background_image_9.jpg",
+            "http://www.backgrounds1080.com/static/images/background-flowers-pictures-vintage-pink-flower-background-hd-wallpapers---flower-wallpaper-hd.jpg",
+            "http://www.backgrounds1080.com/static/images/background_with_clouds.jpg",
+            "http://www.backgrounds1080.com/static/images/background-11_EN3eeOu.jpg"    
+        ];
+
+        var imageIndex = 0;
+
+        $("#previous").on("click", function(){          
+            imageIndex = (imageIndex + images.length -1) % (images.length);    
+            $("#image").attr('src', images[imageIndex]);
+        });
+
+        $("#next").on("click", function(){
+            imageIndex = (imageIndex+1) % (images.length);    
+            $("#image").attr('src', images[imageIndex]);
+        });
+
+        $("#image").attr(images[0]);
+
+    });
+</script>
+</body>
+</hmtl>
